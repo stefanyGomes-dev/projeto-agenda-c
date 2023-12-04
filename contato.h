@@ -13,6 +13,8 @@ typedef struct {
     Data dataNasc;
 } Contato;
 
+int confirmarOperacao();
+int novaOperacao();
 void listaDeContatos();
 void aniversarianteDoMes();
 void inclusaoDeContato();

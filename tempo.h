@@ -13,8 +13,10 @@ typedef struct {
 } Data;
 
 Data dataAtual();
+
 int validarHora(Hora hora);
 int validarData(Data data);
-int colisaoDeHorario(Data data, Hora hora);
+int compararData(Data dataA, Data dataB);
+int compararHora(Hora horaA, Hora horaB);
 
 #endif // TEMPO_H_INCLUDED

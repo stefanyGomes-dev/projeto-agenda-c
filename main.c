@@ -3,6 +3,7 @@
 #include <locale.h>
 
 #include "contato.h"
+#include "compromisso.h"
 
 void menuContato()
 {
@@ -45,6 +46,46 @@ void menuContato()
     }
 }
 
+void menuCompromisso() {
+    int opcao, loop = 1;
+
+    while(loop)
+    {
+        printf("\tCADASTRO DE COMPROMISSOS\n");
+        printf("1 - INCLUSÃO\n");
+        printf("2 - ALTERAÇÃO\n");
+        printf("3 - CONSULTA\n");
+        printf("4 - EXCLUSÃO\n");
+        printf("0 - RETORNAR\n");
+        printf("\tOPCAO : ");
+
+        scanf("%d", &opcao);
+
+        system("cls");
+
+        switch(opcao)
+        {
+        case 0:
+            loop = 0;
+            break;
+        case 1:
+            inclusaoDeCompromisso();
+            break;
+        case 2:
+            alteracaoDeCompromisso();
+            break;
+        case 3:
+            consultaDeCompromisso();
+            break;
+        case 4:
+            exclusaoDeCompromisso();
+            break;
+        }
+
+        system("cls");
+    }
+}
+
 void menuPrincipal()
 {
     int opcao;
@@ -75,10 +116,10 @@ void menuPrincipal()
             menuContato();
             break;
         case 2:
-            //menuCompromisso();
+            menuCompromisso();
             break;
         case 3:
-            //compromissoDoDia();
+            compromissosDoDia();
             break;
         case 4:
             listaDeContatos();

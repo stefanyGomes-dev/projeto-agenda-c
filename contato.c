@@ -18,22 +18,29 @@ void exibirContato(Contato contatato)
 
 void listaDeContatos() {
 
+    int contador = 0;
     FILE * arquivo;
     Contato contato;
 
     arquivo = fopen("regContato.bin", "rb");
 
+    system("cls");
+    printf("\tLISTA DE CONTATOS\n\n");
+    printf("------------------------------------\n");
+    printf("NOME               TEL. PARA CONTATO\n");
+
     if(arquivo != NULL)
     {
-        system("cls");
-        printf("\tLISTA DE CONTATOS\n\n");
-        printf("-------------------------\n");
-        printf("NOME               TEL. PARA CONTATO\n");
+
         while(fread(&contato, sizeof(Contato), 1, arquivo))
         {
+            contador++;
             printf("%s                %s  %s  %s\n", contato.nome, contato.telefones[0].num, contato.telefones[1].num, contato.telefones[2].num);
         }
     }
+
+    if(contador == 0)
+        printf("\n\n\tNENHUM CONTATO CADASTRADO\n\n");
 
     fclose(arquivo);
 
@@ -42,32 +49,37 @@ void listaDeContatos() {
 
 void aniversarianteDoMes() {
 
-    int idade;
+    int idade, contador = 0;
     FILE * arquivo;
     Contato contato;
     Data data = dataAtual();
 
     arquivo = fopen("regContato.bin", "rb");
 
+    system("cls");
+    printf("\tANIVERSARIANTES DO MÊS\n\n");
+    printf("-----------------------------------------------------\n");
+    printf("NOME                 DATA DE ANIVERSÁRIO        IDADE\n");
+
     if(arquivo != NULL)
     {
-        system("cls");
-        printf("\tANIVERSARIANTES DO MÊS\n\n");
-        printf("--------------------------------\n");
-        printf("NOME                 DATA DE ANIVERSÁRIO        IDADE\n");
         while(fread(&contato, sizeof(Contato), 1, arquivo))
         {
             if(data.mm == contato.dataNasc.mm) {
 
+                contador++;
                 idade = data.aa - contato.dataNasc.aa;
 
                 if(contato.dataNasc.dd >= data.dd)
                     idade++;
 
-                printf("%s                %d/%d               %d\n", contato.nome, contato.dataNasc.dd, contato.dataNasc.mm, idade);
+                printf("%s                %02d/%02d               %d\n", contato.nome, contato.dataNasc.dd, contato.dataNasc.mm, idade);
             }
         }
     }
+
+    if(contador == 0)
+        printf("\n\n\tNENHUM ANIVERSÁRIO REGISTRADO PARA HOJE\n");
 
     fclose(arquivo);
 
@@ -191,7 +203,7 @@ void inclusaoDeContato()
 
         for(i = 0; i < 3; i++)
         {
-            printf("%d° TEL. P/ CONTATO: ", (i+1));
+            printf("%d° TEL. P/ CONTATO (9XXXX-YYYY) : ", (i+1));
             fflush(stdin);
             gets(contato.telefones[i].num);
 
@@ -273,7 +285,7 @@ void consultaDeContato()
     while(loop);
 }
 
-void excluir(char telBusca[14])
+void excluirContatoReg(char telBusca[14])
 {
 
     int busca, i;
@@ -335,7 +347,7 @@ void exclusaoDeContato()
 
             if(confirmacao)
             {
-                excluir(telBusca);
+                excluirContatoReg(telBusca);
             }
         }
         else
@@ -347,7 +359,7 @@ void exclusaoDeContato()
     while(loop);
 }
 
-void alterar(Contato contato, char chave[14])
+void alterar(Contato contato, char chave[10])
 {
 
     int i, busca, opcao;
